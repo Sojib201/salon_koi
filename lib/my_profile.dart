@@ -9,9 +9,11 @@ class MyProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CircleAvatar(radius: 50, backgroundImage: AssetImage('assets/profile.jpg')),
+            CircleAvatar(
+                radius: 50, backgroundImage: AssetImage('assets/customer.png')),
             SizedBox(height: 20),
-            Text("John Doe", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            Text("John Doe",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
             SizedBox(height: 10),
             Text("Email: john.doe@example.com"),
             Text("Phone: +91 9876543210"),
@@ -19,7 +21,8 @@ class MyProfileScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Navigate to edit profile screen
-                Navigator.push(context, MaterialPageRoute(builder: (_) => EditProfileScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => EditProfileScreen()));
               },
               child: Text("Edit Profile"),
             ),

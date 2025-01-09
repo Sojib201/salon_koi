@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     {'title': 'View Services', 'route': '/view_services'},
     {'title': 'My Profile', 'route': '/my_profile'},
     {'title': 'Special Offers', 'route': '/special_offers'},
-    //{'title': 'Stylist Profiles', 'route': '/stylist_profiles'},
+    {'title': 'Saloon UI', 'route': '/stylist_profiles'},
     {'title': 'Loyalty & Rewards', 'route': '/loyalty_rewards'},
     //{'title': 'Virtual Makeover', 'route': '/virtual_makeover'},
     {'title': 'Referral Program', 'route': '/referral_program'},

@@ -4,7 +4,7 @@ import 'package:koi/referral_program.dart';
 import 'package:koi/salon_locator.dart';
 import 'package:koi/settings.dart';
 import 'package:koi/special_offers.dart';
-import 'package:koi/stylist_profiles.dart';
+import 'package:koi/saloon_ui.dart';
 import 'package:koi/view_services.dart';
 import 'package:koi/virtual_makeover.dart';
 import 'admin_panel.dart';
@@ -35,7 +35,7 @@ class SaloonKoiApp extends StatelessWidget {
         '/view_services': (context) => ViewServicesScreen(),
         '/my_profile': (context) => MyProfileScreen(),
         '/special_offers': (context) => SpecialOffersScreen(),
-        '/stylist_profiles': (context) => StylistProfilesScreen(),
+        '/stylist_profiles': (context) => SaloonUI(),
         '/loyalty_rewards': (context) => LoyaltyRewardsScreen(),
         '/virtual_makeover': (context) => VirtualMakeoverScreen(),
         '/referral_program': (context) => ReferralProgramScreen(),
