@@ -78,6 +78,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:koi/saloon_list/saloon_data.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -102,20 +103,20 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _loadMarkers() async {
     try {
 
-      String response = '''
-      {
-        "list": [
-          {"id": 1, "saloonName": "Five Star", "lat": 23.7535, "lon": 90.3792},
-          {"id": 2, "saloonName": "Maruf Barber Shop", "lat": 23.7530, "lon": 90.3792},
-          {"id": 3, "saloonName": "Sojib Barber Shop", "lat": 23.7540, "lon": 90.3792},
-          {"id": 4, "saloonName": "Emon Barber Shop", "lat": 23.7535, "lon": 90.3792},
-          {"id": 5, "saloonName": "Anik Barber Shop", "lat": 23.7535, "lon": 90.3792}
-        ]
-      }
-      ''';
+      // String response = '''
+      // {
+      //   "list": [
+      //     {"id": 1, "saloonName": "Five Star", "lat": 23.7535, "lon": 90.3792},
+      //     {"id": 2, "saloonName": "Maruf Barber Shop", "lat": 23.7530, "lon": 90.3792},
+      //     {"id": 3, "saloonName": "Sojib Barber Shop", "lat": 23.7540, "lon": 90.3792},
+      //     {"id": 4, "saloonName": "Emon Barber Shop", "lat": 23.7535, "lon": 90.3792},
+      //     {"id": 5, "saloonName": "Anik Barber Shop", "lat": 23.7535, "lon": 90.3792}
+      //   ]
+      // }
+      // ''';
 
-      final data = json.decode(response);
-      List<dynamic> salons = data['list'];
+     // final data = json.decode(response);
+      List<dynamic> salons =AllSaloon['list'];
 
       setState(() {
         _markers.clear();
@@ -135,6 +136,7 @@ class _MapScreenState extends State<MapScreen> {
       print("Error loading markers: $e");
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
