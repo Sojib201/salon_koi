@@ -1,7 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SaloonUI extends StatelessWidget {
+
+class SaloonHomeScreen extends StatefulWidget {
+  @override
+  State<SaloonHomeScreen> createState() => _SaloonUIState();
+}
+
+class _SaloonUIState extends State<SaloonHomeScreen> {
+
+
   final List<Map<String, String>> categories = [
     {"icon": "content_cut", "label": "Haircut"},
     {"icon": "face", "label": "Shaves"},
@@ -28,6 +36,7 @@ class SaloonUI extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        //automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -150,7 +159,8 @@ class SaloonUI extends StatelessWidget {
               // Categories
               Text(
                 'Categories',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               GridView.builder(
@@ -188,7 +198,8 @@ class SaloonUI extends StatelessWidget {
                 children: [
                   Text(
                     'Nearby Salons',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   TextButton(onPressed: () {}, child: Text('View All')),
                 ],
@@ -218,47 +229,14 @@ class SaloonUI extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.purple,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.location_on), label: 'Location'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Booking'),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        onTap: (index) {
-          if (index == 4) {
-            Navigator.pushNamed(context, '/profile');
-          }
-          if (index == 2) {
-            Navigator.pushNamed(context, '/booking');
-          }
-        },
-      ),
+      )
     );
   }
 }
 
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Center(child: Text('Profile Screen')),
-    );
-  }
-}
 
-class BookingScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Booking')),
-      body: Center(child: Text('Booking Screen')),
-    );
-  }
-}
+
+
+
+
+
