@@ -72,8 +72,8 @@
 //     );
 //   }
 // }
-//
-//
+
+
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -141,7 +141,35 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Salons Map')),
+      appBar: AppBar(
+      automaticallyImplyLeading: false,
+      title: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.search, color: Colors.grey),
+            SizedBox(width: 10),
+            Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  // Handle search logic
+                  print('Searching for: $value');
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.green[700],
+    ),
       body: GoogleMap(
           initialCameraPosition: CameraPosition(
             target:
