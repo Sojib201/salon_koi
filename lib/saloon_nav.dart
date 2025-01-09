@@ -28,7 +28,7 @@ class _SaloonUIState extends State<SaloonNav> {
       body: _selectedIndex == 0
           ? SaloonHomeScreen()
           : _selectedIndex == 1
-              ? SalonLocatorScreen()
+              ? MapScreen()
               : _selectedIndex == 2
                   ? BookAppointmentScreen()
                   : _selectedIndex == 3

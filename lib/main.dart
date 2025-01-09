@@ -16,7 +16,6 @@ import 'loyalty_rewards.dart';
 import 'my_profile.dart';
 import 'notifications.dart';
 
-
 void main() {
   runApp(SaloonKoiApp());
 }
@@ -36,7 +35,6 @@ class SaloonKoiApp extends StatelessWidget {
         '/my_profile': (context) => MyProfileScreen(),
         '/special_offers': (context) => SpecialOffersScreen(),
         '/saloon_nav': (context) => SaloonNav(),
-
         '/loyalty_rewards': (context) => LoyaltyRewardsScreen(),
         '/virtual_makeover': (context) => VirtualMakeoverScreen(),
         '/referral_program': (context) => ReferralProgramScreen(),
