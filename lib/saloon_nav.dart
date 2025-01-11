@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:koi/profileScreen.dart';
 import 'package:koi/saloonHomeScreen.dart';
 
-import 'bookingScreen.dart';
 
+import 'book_appointment.dart';
+import 'bookingScreen.dart';
 import 'locatorScreen.dart';
 import 'messagesScreen.dart';
 
@@ -30,7 +31,7 @@ class _SaloonUIState extends State<SaloonNav> {
           : _selectedIndex == 1
               ? MapScreen()
               : _selectedIndex == 2
-                  ? BookAppointmentScreen()
+                  ? BookAppoinmentScreen()
                   : _selectedIndex == 3
                       ? Messages()
                       : _selectedIndex == 4
