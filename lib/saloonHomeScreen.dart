@@ -39,35 +39,37 @@ class _SaloonUIState extends State<SaloonHomeScreen> {
           title: Row(
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/customer.png'), // Replace with your profile image
+                backgroundImage: AssetImage('assets/customer.png'),
               ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Viren Radadiya',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.black),
-                  ),
-                  Text(
-                    '2715 Ash Dr. San Jose, San Jose, CA',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                ],
+              //SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Viren Radadiya',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.black),
+                    ),
+                    Text(
+                      '2715 Ash Dr. San Jose, San Jose, CA',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
-              Spacer(),
+              //Spacer(),
               IconButton(
-                  color: Colors.black,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/notifications');
-                  },
-                  icon: Icon(
-                    Icons.notifications_outlined,
-                  )),
+                color: Colors.black,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/notifications');
+                },
+                icon: Icon(
+                  Icons.notifications_outlined,
+                ),
+              ),
             ],
           ),
         ),
