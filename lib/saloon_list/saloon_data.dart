@@ -1,6 +1,5 @@
 Map<String, dynamic> AllSaloon = {
   'list': [
-    {'id': 1, 'saloonName': 'Five Star', 'lat': 23.7535, 'lon': 90.3792},
     {
       'id': 2,
       'saloonName': 'Maruf Barbar Shop',
@@ -14,9 +13,6 @@ Map<String, dynamic> AllSaloon = {
       'lon': 90.3792
     },
     {'id': 4, 'saloonName': 'Emon Barbar Shop', 'lat': 2.7535, 'lon': 90.3792},
-    {'id': 5, 'saloonName': 'Anik Barbar Shop', 'lat': 23.7535, 'lon': 90.3792},
-    {'id': 5, 'saloonName': 'Anik Barbar Shop', 'lat': 23.7535, 'lon': 90.3772},
-    {'id': 5, 'saloonName': 'Anik Barbar Shop', 'lat': 23.7536, 'lon': 90.3792},
+    //{'id': 5, 'saloonName': 'Anik Barbar Shop', 'lat': 23.7536, 'lon': 90.3792},
   ]
 };
-

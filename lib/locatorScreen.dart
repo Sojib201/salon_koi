@@ -73,19 +73,26 @@
 //   }
 // }
 
-import 'dart:convert';
+
+
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:koi/saloon_list/saloon_data.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController? _controller;
-  Set<Marker> _markers = Set();
+  final Set<Marker> _markers = {};
 
   void _onMapCreated(GoogleMapController controller) {
     _controller = controller;
@@ -119,7 +126,7 @@ class _MapScreenState extends State<MapScreen> {
         for (var salon in salons) {
           _markers.add(Marker(
             markerId:
-                MarkerId(salon['id'].toString()), // Unique ID for each marker
+                MarkerId(salon['id'].toString()),
             position: LatLng(salon['lat'], salon['lon']),
             infoWindow: InfoWindow(
               title: salon['saloonName'],
@@ -140,119 +147,89 @@ class _MapScreenState extends State<MapScreen> {
           backgroundColor: Colors.white,
           body: Stack(
             children: [
-              // Google Map and ListTile Section
-              Column(
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: Container(
-                      color: Colors.purple.shade50,
-                      child: Column(
-                        children: [
-                          // Container(
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       IconButton(
-                          //         onPressed: () {},
-                          //         icon: Icon(Icons.arrow_back),
-                          //       ),
-                          //       Column(
-                          //         //crossAxisAlignment: CrossAxisAlignment.start,
-                          //         //mainAxisAlignment: MainAxisAlignment.start,
-                          //         children: [
-                          //           Text(
-                          //             'Current Location',
-                          //             style: TextStyle(fontWeight: FontWeight.bold),
-                          //           ),
-                          //           Row(
-                          //             children: [
-                          //               Icon(
-                          //                 Icons.location_on,
-                          //                 color: Colors.green,
-                          //               ),
-                          //               Text('Ash Dr. San Jose'),
-                          //             ],
-                          //           ),
-                          //         ],
-                          //       ),
-                          //       IconButton(
-                          //         onPressed: () {},
-                          //         icon: Icon(Icons.search),
-                          //       ),
-                          //
-                          //     ],
-                          //   ),
-                          // ),
-                          ListTile(
-                            leading: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.arrow_back),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.search),
-                            ),
-                            title: Column(
-                              //mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Current Location',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: Colors.green,
-                                    ),
-                                    Text('Ash Dr. San Jose'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            // subtitle: Row(
-                            //   children: [
-                            //     Icon(
-                            //       Icons.location_on,
-                            //       color: Colors.green,
-                            //     ),
-                            //     Text('Ash Dr. San Jose'),
-                            //   ],
-                            // ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(35),
-                                topLeft: Radius.circular(35),
-                              ),
-                              child: GoogleMap(
-                                  initialCameraPosition: CameraPosition(
-                                    target: LatLng(23.7535, 90.3792),
-                                    zoom: 15,
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.465,
+                left: 0,
+                right: 0,
+                top: 0,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 8,
+                      child: Container(
+                        color: Colors.purple.shade50,
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.arrow_back),
                                   ),
-                                  markers: _markers,
-                                  onMapCreated: _onMapCreated),
+                                  SizedBox(width: 6,),
+                                  Column(
+                                    //crossAxisAlignment: CrossAxisAlignment.center,
+                                    //mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Current Location',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                      Row(
+
+                                        children: [
+                                          SizedBox(width: 10,),
+                                          Icon(
+                                            Icons.location_on,size: 18,
+                                            color: Colors.green,
+                                          ),
+                                          Text('Ash Dr. San Jose'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 145,),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.search),
+                                  ),
+
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              flex: 1,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(35),
+                                  topLeft: Radius.circular(35),
+                                ),
+                                child: GoogleMap(
+                                    initialCameraPosition: const CameraPosition(
+                                      target: LatLng(23.7535, 90.3792),
+                                      zoom: 15,
+                                    ),
+                                    markers: _markers,
+                                    onMapCreated: _onMapCreated),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.42,
+                top: MediaQuery.of(context).size.height * 0.39,
                 left: 0,
                 right: 0,
                 bottom: 0,
                 child: Container(
                   height: 180,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(35),
@@ -270,7 +247,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -280,7 +257,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -313,19 +290,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -344,7 +321,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -354,7 +331,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -387,19 +364,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -418,7 +395,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -428,7 +405,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -461,19 +438,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -492,7 +469,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -502,7 +479,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -535,19 +512,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -566,7 +543,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -576,7 +553,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -609,19 +586,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -640,7 +617,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -650,7 +627,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -683,19 +660,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -714,7 +691,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -724,7 +701,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -757,19 +734,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -788,7 +765,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -798,7 +775,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -831,19 +808,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -862,7 +839,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -872,7 +849,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -905,19 +882,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -936,7 +913,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -946,7 +923,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -979,19 +956,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1010,7 +987,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -1020,7 +997,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -1053,19 +1030,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1084,7 +1061,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -1094,7 +1071,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -1127,19 +1104,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1158,7 +1135,7 @@ class _MapScreenState extends State<MapScreen> {
                             height: 94,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                               border: Border.all(color: Colors.grey),
@@ -1168,7 +1145,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(11),
                                       bottomLeft: Radius.circular(11),
                                     ),
@@ -1201,19 +1178,19 @@ class _MapScreenState extends State<MapScreen> {
                                         height: 30,
                                         child: ElevatedButton(
                                           onPressed: () {},
-                                          child: Text(
-                                            'Upcoming',
-                                            style:
-                                            TextStyle(color: Colors.black),
-                                          ),
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                               BorderRadius.circular(30),
                                             ),
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
                                             backgroundColor: Colors.white54,
+                                          ),
+                                          child: const Text(
+                                            'Upcoming',
+                                            style:
+                                            TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1234,3 +1211,4 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
+
