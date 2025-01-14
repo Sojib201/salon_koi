@@ -73,13 +73,6 @@
 //   }
 // }
 
-
-
-
-
-
-
-
 // import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:koi/saloon_list/saloon_data.dart';
@@ -380,16 +373,6 @@
 // }
 //
 
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -415,10 +398,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Google Map
           GoogleMap(
             polylines: {
               Polyline(
@@ -434,15 +416,15 @@ class _MapScreenState extends State<MapScreen> {
             markers: _markers,
             onMapCreated: _onMapCreated,
           ),
-          // Header Section
+
           Positioned(
-            top: 0,
+            top: 20,
             left: 0,
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.purple.shade50,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -491,9 +473,9 @@ class _MapScreenState extends State<MapScreen> {
           ),
           // Draggable Bottom Sheet
           DraggableScrollableSheet(
-            initialChildSize: 0.3, // Start at 30% of screen height
-            minChildSize: 0.3, // Minimum size
-            maxChildSize: 0.7, // Maximum size
+            initialChildSize: 0.3,
+            minChildSize: 0.3,
+            maxChildSize: 0.7,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 decoration: const BoxDecoration(
@@ -529,4 +511,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-
