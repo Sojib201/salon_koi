@@ -391,8 +391,8 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Polyline> _polylines = {};
   final List<LatLng> _polylineCoordinates = [
     LatLng(23.7530, 90.3792),
-    LatLng(23.7540, 90.3792),
-    // LatLng(23.7550, 90.3800),
+    LatLng(23.7550, 90.3795),
+     //LatLng(23.7550, 90.3800),
   ];
 
   void _onMapCreated(GoogleMapController controller) {
@@ -473,95 +473,115 @@ class _MapScreenState extends State<MapScreen> {
               right: 0,
               top: 0,
               child: Container(
-              color: Colors.purple.shade50,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          //flex: 1,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_back),
-                          ),
-                        ),
-                        //SizedBox(width: 6,),
-                        const Expanded(
-                          flex: 4,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Current Location',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 18,
-                                    color: Colors.green,
-                                  ),
-                                  Text('Ash Dr. San Jose'),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        //SizedBox(width: 110,),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.search),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 8,),
-                  Expanded(
-                    //flex: 6,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-
-                        topRight: Radius.circular(28),
-                        topLeft: Radius.circular(28),
-                      ),
-                      child: GoogleMap(
-                        // polylines: <Polyline>{
-                        //   Polyline(
-                        //     polylineId: PolylineId('sample'),
-                        //     color: Colors.red,
-                        //
-                        //   )
-                        // },
-                          polylines: <Polyline>{
-                            Polyline(
-                              polylineId: PolylineId('route1'),
-                              color: Colors.blue,
-                              points: _polylineCoordinates,
+                color: Colors.purple.shade50,
+                child: Column(
+                  children: [
+                    Container(
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            //flex: 1,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_back),
                             ),
-                          },
-                          initialCameraPosition: const CameraPosition(
-                            target: LatLng(23.7535, 90.3792),
-                            zoom: 15,
                           ),
-                          markers: _markers,
-                          onMapCreated: _onMapCreated),
+                          //SizedBox(width: 6,),
+                          const Expanded(
+                            flex: 4,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Current Location',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 18,
+                                      color: Colors.green,
+                                    ),
+                                    Text('Ash Dr. San Jose'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          //SizedBox(width: 110,),
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.search),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Expanded(
+                      //flex: 6,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(28),
+                          topLeft: Radius.circular(28),
+                        ),
+                        child: GoogleMap(
+                            trafficEnabled: true,
+                            buildingsEnabled: true,
+                            myLocationEnabled: true,
+                            myLocationButtonEnabled: true,
+                            scrollGesturesEnabled: true,
 
+
+                            // polylines: <Polyline>{
+                            //   Polyline(
+                            //     polylineId: PolylineId('sample'),
+                            //     color: Colors.red,
+                            //
+                            //   )
+                            // },
+
+
+                            // polygons: {
+                            //   Polygon(
+                            //     polygonId: PolygonId('polygon1'),
+                            //     points: _polylineCoordinates,
+                            //     fillColor: Colors.blue.withOpacity(0.2),
+                            //     strokeColor: Colors.red,
+                            //     strokeWidth: 2,
+                            //   ),
+                            // },
+
+
+                            polylines: <Polyline>{
+                              Polyline(
+                                polylineId: PolylineId('route1'),
+                                color: Colors.blue,
+                                points: _polylineCoordinates,
+                              ),
+                            },
+                            initialCameraPosition: const CameraPosition(
+                              target: LatLng(23.7550, 90.37100),
+                              zoom: 15,
+                            ),
+                            markers: _markers,
+                            onMapCreated: _onMapCreated),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             DraggableScrollableSheet(
               initialChildSize: 0.21,
               minChildSize: 0.2,
@@ -575,7 +595,6 @@ class _MapScreenState extends State<MapScreen> {
                       topLeft: Radius.circular(28),
                       topRight: Radius.circular(28),
                     ),
-
                   ),
                   child: ListView.builder(
                     controller: scrollController,
