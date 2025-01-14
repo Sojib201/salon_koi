@@ -401,6 +401,7 @@ class _MapScreenState extends State<MapScreen> {
       //backgroundColor: Colors.black,
       body: Stack(
         children: [
+
           GoogleMap(
             polylines: {
               Polyline(
@@ -473,9 +474,9 @@ class _MapScreenState extends State<MapScreen> {
           ),
           // Draggable Bottom Sheet
           DraggableScrollableSheet(
-            initialChildSize: 0.3,
-            minChildSize: 0.3,
-            maxChildSize: 0.7,
+            initialChildSize: 0.2,
+            minChildSize: 0.2,
+            maxChildSize: 0.8,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 decoration: const BoxDecoration(
