@@ -164,117 +164,106 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Stack(
-            children: [
-              Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.465,
-                left: 0,
-                right: 0,
-                top: 0,
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            Expanded(
+              //flex: 5,
+              child: Container(
+                color: Colors.purple.shade50,
                 child: Column(
                   children: [
-                    Expanded(
-                      flex: 8,
-                      child: Container(
-                        color: Colors.purple.shade50,
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.arrow_back),
-                                    ),
-                                  ),
-                                  //SizedBox(width: 6,),
-                                  const Expanded(
-                                    flex: 5,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Current Location',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Icon(
-                                              Icons.location_on,
-                                              size: 18,
-                                              color: Colors.green,
-                                            ),
-                                            Text('Ash Dr. San Jose'),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  //SizedBox(width: 110,),
-                                  Expanded(
-                                    flex: 1,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.search),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                    Container(
+                      child: Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_back),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(35),
-                                  topLeft: Radius.circular(35),
+                          ),
+                          //SizedBox(width: 6,),
+                          const Expanded(
+                            flex: 5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Current Location',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                child: GoogleMap(
-                                    // polylines: <Polyline>{
-                                    //   Polyline(
-                                    //     polylineId: PolylineId('sample'),
-                                    //     color: Colors.red,
-                                    //
-                                    //   )
-                                    // },
-                                    polylines: <Polyline>{
-                                      Polyline(
-                                        polylineId: PolylineId('route1'),
-                                        color: Colors.blue,
-                                        points: _polylineCoordinates,
-                                      )
-                                    },
-                                    initialCameraPosition: const CameraPosition(
-                                      target: LatLng(23.7535, 90.3792),
-                                      zoom: 15,
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
                                     ),
-                                    markers: _markers,
-                                    onMapCreated: _onMapCreated),
-                              ),
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 18,
+                                      color: Colors.green,
+                                    ),
+                                    Text('Ash Dr. San Jose'),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
+                          //SizedBox(width: 110,),
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.search),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(35),
+                          topLeft: Radius.circular(35),
                         ),
+                        child: GoogleMap(
+                            // polylines: <Polyline>{
+                            //   Polyline(
+                            //     polylineId: PolylineId('sample'),
+                            //     color: Colors.red,
+                            //
+                            //   )
+                            // },
+                            polylines: <Polyline>{
+                              Polyline(
+                                polylineId: PolylineId('route1'),
+                                color: Colors.blue,
+                                points: _polylineCoordinates,
+                              ),
+                            },
+                            initialCameraPosition: const CameraPosition(
+                              target: LatLng(23.7535, 90.3792),
+                              zoom: 15,
+                            ),
+                            markers: _markers,
+                            onMapCreated: _onMapCreated),
                       ),
                     ),
                   ],
                 ),
               ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.39,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
+            ),
+            DraggableScrollableSheet(
+              expand: true,
+              initialChildSize: 0.3,
+              minChildSize: 0.3,
+              maxChildSize: 0.7,
+              builder:
+                  (BuildContext context, ScrollController scrollController) {
+                return Container(
                   height: 180,
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -283,11 +272,11 @@ class _MapScreenState extends State<MapScreen> {
                       topRight: Radius.circular(35),
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 15),
-                        Padding(
+                  child: ListView.builder(
+                    controller: scrollController,
+                      itemCount: 20,
+                      itemBuilder: (context, index) {
+                        return Padding(
                           padding: const EdgeInsets.only(
                               top: 3, bottom: 10, left: 14, right: 14),
                           child: Container(
@@ -359,902 +348,99 @@ class _MapScreenState extends State<MapScreen> {
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 10, left: 14, right: 14),
-                          child: Container(
-                            height: 94,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(11),
-                                      bottomLeft: Radius.circular(11),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/img_1.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 8),
-                                      Text('Fency Nails'),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.access_time),
-                                          Text('Wed'),
-                                          Text('18'),
-                                          Text('May'),
-                                          Text('2023'),
-                                        ],
-                                      ),
-                                      SizedBox(height: 6),
-                                      SizedBox(
-                                        height: 30,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 12),
-                                            backgroundColor: Colors.white54,
-                                          ),
-                                          child: const Text(
-                                            'Upcoming',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )),
+                        );
+                      }),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+//
+// class MapScreen extends StatefulWidget {
+//   const MapScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   _MapScreenState createState() => _MapScreenState();
+// }
+//
+// class _MapScreenState extends State<MapScreen> {
+//   GoogleMapController? _controller;
+//   final Set<Marker> _markers = {};
+//   final List<LatLng> _polylineCoordinates = [
+//     LatLng(23.7530, 90.3792),
+//     LatLng(23.7540, 90.3792),
+//   ];
+//
+//   void _onMapCreated(GoogleMapController controller) {
+//     _controller = controller;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.black,
+//       body: Stack(
+//         children: [
+//           // Google Map
+//           GoogleMap(
+//             polylines: {
+//               Polyline(
+//                 polylineId: PolylineId('route1'),
+//                 color: Colors.blue,
+//                 points: _polylineCoordinates,
+//               ),
+//             },
+//             initialCameraPosition: const CameraPosition(
+//               target: LatLng(23.7535, 90.3792),
+//               zoom: 15,
+//             ),
+//             markers: _markers,
+//             onMapCreated: _onMapCreated,
+//           ),
+//           // DraggableScrollableSheet
+//           DraggableScrollableSheet(
+//             initialChildSize: 0.3, // Start at 30% of screen height
+//             minChildSize: 0.3, // Minimum size
+//             maxChildSize: 0.7, // Maximum size
+//             builder: (BuildContext context, ScrollController scrollController) {
+//               return Container(
+//                 decoration: const BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(20),
+//                     topRight: Radius.circular(20),
+//                   ),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: Colors.black12,
+//                       spreadRadius: 2,
+//                       blurRadius: 10,
+//                     ),
+//                   ],
+//                 ),
+//                 child: ListView.builder(
+//                   controller: scrollController,
+//                   itemCount: 20, // Example item count
+//                   itemBuilder: (context, index) {
+//                     return ListTile(
+//                       leading: Icon(Icons.location_on),
+//                       title: Text('Place $index'),
+//                       subtitle: Text('Details about Place $index'),
+//                     );
+//                   },
+//                 ),
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
