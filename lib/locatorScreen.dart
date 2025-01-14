@@ -118,29 +118,28 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _loadMarkers() async {
     try {
-      //List<dynamic> salons = AllSaloon['list'];
-      Map<String, dynamic> AllSaloon = {
-        'list': [
-          {
-            'id': 2,
-            'saloonName': 'Maruf Barbar Shop',
-            'lat': 23.7530,
-            'lon': 90.3792
-          },
-          {
-            'id': 3,
-            'saloonName': 'Sojib Barbar Shop',
-            'lat': 23.7540,
-            'lon': 90.3792
-          },
-          {
-            'id': 4,
-            'saloonName': 'Emon Barbar Shop',
-            'lat': 2.7535,
-            'lon': 90.3792
-          },
-        ]
-      };
+      // Map<String, dynamic> AllSaloon = {
+      //   'list': [
+      //     {
+      //       'id': 2,
+      //       'saloonName': 'Maruf Barbar Shop',
+      //       'lat': 23.7530,
+      //       'lon': 90.3792
+      //     },
+      //     {
+      //       'id': 3,
+      //       'saloonName': 'Sojib Barbar Shop',
+      //       'lat': 23.7540,
+      //       'lon': 90.3792
+      //     },
+      //     {
+      //       'id': 4,
+      //       'saloonName': 'Emon Barbar Shop',
+      //       'lat': 2.7535,
+      //       'lon': 90.3792
+      //     },
+      //   ]
+      // };
       List<dynamic> salons = AllSaloon['list'];
 
       setState(() {
