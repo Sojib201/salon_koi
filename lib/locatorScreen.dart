@@ -73,12 +73,6 @@
 //   }
 // }
 
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:koi/saloon_list/saloon_data.dart';
@@ -94,9 +88,27 @@ class _MapScreenState extends State<MapScreen> {
   GoogleMapController? _controller;
   final Set<Marker> _markers = {};
 
+  final Set<Polyline> _polylines = {};
+  final List<LatLng> _polylineCoordinates = [
+    LatLng(23.7530, 90.3792),
+    LatLng(23.7540, 90.3792),
+    // LatLng(23.7550, 90.3800),
+  ];
+
   void _onMapCreated(GoogleMapController controller) {
     _controller = controller;
+    //_addPolyline();
   }
+  // void _addPolyline() {
+  //   setState(() {
+  //     _polylines.add(Polyline(
+  //       polylineId: PolylineId('route1'),
+  //       points: _polylineCoordinates,
+  //       color: Colors.red,
+  //       width: 5, // Line thickness
+  //     ));
+  //   });
+  // }
 
   @override
   void initState() {
@@ -106,15 +118,36 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _loadMarkers() async {
     try {
-
+      //List<dynamic> salons = AllSaloon['list'];
+      Map<String, dynamic> AllSaloon = {
+        'list': [
+          {
+            'id': 2,
+            'saloonName': 'Maruf Barbar Shop',
+            'lat': 23.7530,
+            'lon': 90.3792
+          },
+          {
+            'id': 3,
+            'saloonName': 'Sojib Barbar Shop',
+            'lat': 23.7540,
+            'lon': 90.3792
+          },
+          {
+            'id': 4,
+            'saloonName': 'Emon Barbar Shop',
+            'lat': 2.7535,
+            'lon': 90.3792
+          },
+        ]
+      };
       List<dynamic> salons = AllSaloon['list'];
 
       setState(() {
         _markers.clear();
         for (var salon in salons) {
           _markers.add(Marker(
-            markerId:
-                MarkerId(salon['id'].toString()),
+            markerId: MarkerId(salon['id'].toString()),
             position: LatLng(salon['lat'], salon['lon']),
             infoWindow: InfoWindow(
               title: salon['saloonName'],
@@ -152,38 +185,51 @@ class _MapScreenState extends State<MapScreen> {
                               child: Row(
                                 //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.arrow_back),
+                                  Expanded(
+                                    flex: 2,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.arrow_back),
+                                    ),
                                   ),
-                                  SizedBox(width: 6,),
-                                  Column(
-                                    //crossAxisAlignment: CrossAxisAlignment.center,
-                                    //mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Current Location',
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-
-                                        children: [
-                                          SizedBox(width: 10,),
-                                          Icon(
-                                            Icons.location_on,size: 18,
-                                            color: Colors.green,
-                                          ),
-                                          Text('Ash Dr. San Jose'),
-                                        ],
-                                      ),
-                                    ],
+                                  //SizedBox(width: 6,),
+                                  const Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Current Location',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 18,
+                                              color: Colors.green,
+                                            ),
+                                            Text('Ash Dr. San Jose'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(width: 145,),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.search),
+                                  //SizedBox(width: 110,),
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.search),
+                                    ),
                                   ),
-
                                 ],
                               ),
                             ),
@@ -195,6 +241,20 @@ class _MapScreenState extends State<MapScreen> {
                                   topLeft: Radius.circular(35),
                                 ),
                                 child: GoogleMap(
+                                    // polylines: <Polyline>{
+                                    //   Polyline(
+                                    //     polylineId: PolylineId('sample'),
+                                    //     color: Colors.red,
+                                    //
+                                    //   )
+                                    // },
+                                    polylines: <Polyline>{
+                                      Polyline(
+                                        polylineId: PolylineId('route1'),
+                                        color: Colors.blue,
+                                        points: _polylineCoordinates,
+                                      )
+                                    },
                                     initialCameraPosition: const CameraPosition(
                                       target: LatLng(23.7535, 90.3792),
                                       zoom: 15,
@@ -334,7 +394,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -355,7 +415,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -364,7 +424,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -408,7 +468,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -429,7 +489,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -438,7 +498,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -482,7 +542,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -503,7 +563,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -512,7 +572,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -556,7 +616,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -577,7 +637,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -586,7 +646,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -630,7 +690,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -651,7 +711,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -660,7 +720,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -704,7 +764,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -725,7 +785,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -734,7 +794,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -778,7 +838,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -799,7 +859,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -808,7 +868,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -852,7 +912,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -873,7 +933,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -882,7 +942,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -926,7 +986,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -947,7 +1007,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -956,7 +1016,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1000,7 +1060,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -1021,7 +1081,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -1030,7 +1090,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1074,7 +1134,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -1095,7 +1155,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -1104,7 +1164,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1148,7 +1208,7 @@ class _MapScreenState extends State<MapScreen> {
                                   flex: 10,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 8),
                                       Text('Fency Nails'),
@@ -1169,7 +1229,7 @@ class _MapScreenState extends State<MapScreen> {
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30),
+                                                  BorderRadius.circular(30),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 12),
@@ -1178,7 +1238,7 @@ class _MapScreenState extends State<MapScreen> {
                                           child: const Text(
                                             'Upcoming',
                                             style:
-                                            TextStyle(color: Colors.black),
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -1199,4 +1259,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-
