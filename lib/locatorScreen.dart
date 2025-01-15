@@ -598,10 +598,8 @@ class _MapScreenState extends State<MapScreen> {
                         Expanded(
                           //flex:2,
                           child: Icon(
-                            Icons.horizontal_rule_outlined,
+                            Icons.horizontal_rule_rounded,
                             size: 30,
-
-
                           ),
                         ),
                         Expanded(
