@@ -399,6 +399,7 @@ class _MapScreenState extends State<MapScreen> {
     _controller = controller;
     //_addPolyline();
   }
+
   // void _addPolyline() {
   //   setState(() {
   //     _polylines.add(Polyline(
@@ -586,110 +587,109 @@ class _MapScreenState extends State<MapScreen> {
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(28),
-                        topRight: Radius.circular(28),
-                      ),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(28),
+                      topRight: Radius.circular(28),
                     ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          //flex:2,
-                          child: Icon(
-                            Icons.horizontal_rule_rounded,
-                            size: 30,
-                          ),
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        //flex:2,
+                        child: Icon(
+                          Icons.horizontal_rule_rounded,
+                          size: 30,
                         ),
-                        Expanded(
-                          flex: 18,
-                          child: ListView.builder(
-                            controller: scrollController,
-                            itemCount: 20,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20, bottom: 10, left: 14, right: 14),
-                                child: Container(
-                                  height: 94,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(12),
-                                    ),
-                                    border: Border.all(color: Colors.grey),
+                      ),
+                      Expanded(
+                        flex: 18,
+                        child: ListView.builder(
+                          controller: scrollController,
+                          itemCount: 20,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, bottom: 10, left: 14, right: 14),
+                              child: Container(
+                                height: 94,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(12),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 4,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(11),
-                                            bottomLeft: Radius.circular(11),
-                                          ),
-                                          child: Image.asset(
-                                            'assets/img_1.png',
-                                            fit: BoxFit.contain,
-                                          ),
+                                  border: Border.all(color: Colors.grey),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(11),
+                                          bottomLeft: Radius.circular(11),
+                                        ),
+                                        child: Image.asset(
+                                          'assets/img_1.png',
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
-                                      SizedBox(width: 8),
-                                      Expanded(
-                                        flex: 10,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 8),
-                                            Text('Fency Nails'),
-                                            const Row(
-                                              children: [
-                                                Icon(Icons.access_time),
-                                                Text('Wed'),
-                                                Text('18'),
-                                                Text('May'),
-                                                Text('2023'),
-                                              ],
-                                            ),
-                                            SizedBox(height: 6),
-                                            SizedBox(
-                                              height: 30,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                style: ElevatedButton.styleFrom(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 0,
-                                                      horizontal: 12),
-                                                  backgroundColor:
-                                                      Colors.white54,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      flex: 10,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 8),
+                                          Text('Fency Nails'),
+                                          const Row(
+                                            children: [
+                                              Icon(Icons.access_time),
+                                              Text('Wed'),
+                                              Text('18'),
+                                              Text('May'),
+                                              Text('2023'),
+                                            ],
+                                          ),
+                                          SizedBox(height: 6),
+                                          SizedBox(
+                                            height: 30,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
                                                 ),
-                                                child: const Text(
-                                                  'Upcoming',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 0,
+                                                        horizontal: 12),
+                                                backgroundColor: Colors.white54,
+                                              ),
+                                              child: const Text(
+                                                'Upcoming',
+                                                style: TextStyle(
+                                                    color: Colors.black),
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    ));
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           ],
